@@ -8,9 +8,13 @@ export default function Dahsboard() {
     const {http} = AuthUser();
     const [userdetail, setUserdetail] = useState('');
 
-    useEffect(() =>{
+   
+
+    useEffect(() => {
         fetchUserDetail();
-    });
+    }, []);
+      
+    
 
     const fetchUserDetail = () =>{
         http.post('/me').then((res)=>{
