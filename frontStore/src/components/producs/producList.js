@@ -1,28 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
+import axios from 'axios';
+
+const endpoint = 'http://localhost:8000/api';
+
 
 const ProducList = () => {
-    const products = [
-        {
-            id: 1,
-            name: "ejemplo",
-            description: "probando objeto",
-            price: 1500
-        },
-        {
-            id: 2,
-            name: "Producto 1",
-            description: "Este es el primer producto de la lista",
-            price: 2000
-        },
-        {
-            id: 3,
-            name: "Producto 2",
-            description: "Este es el segundo producto de la lista",
-            price: 3000
-        }
 
-    ];
+    const [ products, setProducts ] = useState( [] )
+
+    useEffect ( ()=> {
+        getAllProducts()
+    }, [])
+
+    const getAllProducts = async () => {
+        const response = await axios.get(`${endpoint}/products`)
+        setProducts(response.data)
+    }
+        
+
 
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -44,15 +40,17 @@ const ProducList = () => {
             </Form>
             <Row>
                 {filteredProducts.map((product) => (
-                    <Col key={product.id} sm={12} md={6} lg={4} xl={3}>
+                    <Col key={product.id}>
                         <Card className='my-3 p-3 rounded'>
                             <Card.Body>
                                 <Card.Title as='div'>
                                     <strong>{product.name}</strong>
                                 </Card.Title>
+                                <img src={product.img} alt={product.name} className="img-thumbnail" style={{maxHeight: "200px", maxWidth: "250px"}} />
                                 <Card.Text as='div'>{product.description}</Card.Text>
+                                <Card.Text as='div'>{product.stock}</Card.Text>
                                 <Card.Text as='h3'>${product.price}</Card.Text>
-                                <Button variant='primary'>Agregar al carrito</Button>
+                                <Button variant='primary'>Product Details</Button>
                             </Card.Body>
                         </Card>
                     </Col>
