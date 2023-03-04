@@ -1,10 +1,10 @@
-import {Routes, Route, Link} from 'react-router-dom';
+import {Routes, Route, Link, Navigate} from 'react-router-dom';
 import Home from '../components/home';
 import Dashboard from '../components/dashboard';
 import AuthUser from '../components/AuthUser';
 import logo from '../assets/logo.png';
 import React from 'react';
-import {Nav, NavDropdown } from 'react-bootstrap';
+import {Nav, NavDropdown} from 'react-bootstrap';
 import ProductCart from '../components/producs/productCart';
 
 import ProducList from '../components/producs/producList';
@@ -24,6 +24,7 @@ function Auth() {
       logout();
     }
   }
+  
   
 
   return (
