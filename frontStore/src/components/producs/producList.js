@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 
+
 const endpoint = 'http://localhost:8000/api';
 
 
@@ -17,6 +18,9 @@ const ProducList = () => {
         const response = await axios.get(`${endpoint}/products`)
         setProducts(response.data)
     }
+
+
+    
         
 
 
@@ -47,10 +51,9 @@ const ProducList = () => {
                                     <strong>{product.name}</strong>
                                 </Card.Title>
                                 <img src={product.img} alt={product.name} className="img-thumbnail" style={{maxHeight: "200px", maxWidth: "250px"}} />
-                                <Card.Text as='div'>{product.description}</Card.Text>
                                 <Card.Text as='div'>{product.stock}</Card.Text>
                                 <Card.Text as='h3'>${product.price}</Card.Text>
-                                <Button variant='primary'>Product Details</Button>
+                                <Button variant='primary' onClick={() => { window.location.href = `http://localhost:3000/product/${product.id}` }}>Product Details</Button>
                             </Card.Body>
                         </Card>
                     </Col>

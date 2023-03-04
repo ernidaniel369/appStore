@@ -6,7 +6,7 @@ import logo from '../assets/logo.png';
 import React from 'react';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import ProducList from '../components/producs/producList';
-
+import ProductDetail from '../components/producs/productDetail';
 
 
 
@@ -40,7 +40,8 @@ function Guest() {
 
       <div className="container">
         <Routes>
-        <Route path="/list" element={<ProducList />} />
+          <Route path="/list" element={<ProducList />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

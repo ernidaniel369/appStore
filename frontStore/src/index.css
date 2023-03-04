@@ -4,3 +4,10 @@ body {
   background-repeat:round;
   font-family: 'Montserrat', sans-serif;
 }
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  background-color: black;
+}
+
+.carousel-control-prev-icon:before, .carousel-control-next-icon:before {
+  color: white;
+}

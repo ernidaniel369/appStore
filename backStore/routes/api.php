@@ -14,7 +14,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 
 Route::get('products', [ProductController::class, 'getAllProduct']);
-Route::get('product', [ProductController::class, 'getProduct/{id}']);
+Route::get('product/{id}', [ProductController::class, 'getProduct']);
 
 
 
