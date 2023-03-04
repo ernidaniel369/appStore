@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\images;
 use App\Models\Product;
+
 use Illuminate\Http\Request;
 
 
@@ -32,7 +34,7 @@ class ProductController extends Controller
     
     public function getProduct($id)
     {
-        $product = Product::find($id);
+        $product = Product::with('images')->find($id);
         return $product;
     }
 

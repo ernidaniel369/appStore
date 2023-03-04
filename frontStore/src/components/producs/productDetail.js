@@ -40,11 +40,10 @@ const ProductDetail = () => {
         console.log(product);
         return <div>Loading...</div>
     }
-    const imgList = product.img.split(',');
     
 
     return (
-        <Container style={{maxWidth: '600px'}} className="align-items-center">
+        <Container style={{maxWidth: '800px'}} className="align-items-center">
             <Row>
                 <Col>
                 <Card className='my-3 p-3 rounded'>
@@ -53,15 +52,15 @@ const ProductDetail = () => {
                         <strong>{product.name}</strong>
                     </Card.Title>
                     <Carousel prevIcon={<span className="carousel-control-prev-icon" />} nextIcon={<span className="carousel-control-next-icon" />}>
-                        {imgList.map((img, index) => (
-                        <Carousel.Item key={index}>
-                            <img
-                            src={img}
-                            alt={`${product.name}-img-${index}`}
-                            className="d-block mx-auto img-fluid"
-                            style={{maxHeight: "500px", maxWidth: "100%"}}
-                            />
-                        </Carousel.Item>
+                        {product.images.map((img, index) => (
+                            <Carousel.Item key={index}>
+                                <img
+                                src={img.url}
+                                alt={`${product.name}-img-${index}`}
+                                className="d-block mx-auto img-fluid"
+                                style={{maxHeight: "500px", maxWidth: "100%"}}
+                                />
+                            </Carousel.Item>
                         ))}
                     </Carousel>
                     </Card.Body>
