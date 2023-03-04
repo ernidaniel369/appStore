@@ -11,3 +11,9 @@ body {
 .carousel-control-prev-icon:before, .carousel-control-next-icon:before {
   color: white;
 }
+
+.nav-link.fs-4.me-2 .svg-inline--fa {
+  font-size: inherit;
+  color: inherit;
+}
+

@@ -12,18 +12,11 @@ import ProductDetail from '../components/producs/productDetail';
 
 
 function Guest() {
-
-  
-    
-
   return (
     <>
-      
-
       <nav className="navbar navbar-expand-sm bg-dark">
         <div className="container-fluid">
           <Link to="/"><img src={logo} width={130} alt="logo"/></Link>
-          
           <ul className="navbar-nav align-items-center mx-3">
             <Link to="/list"  className="navbar-nav align-items-center ml-auto fs-4">Producs</Link> 
             <Nav className="ml-auto nav-link text-light fs-4 me-2">
@@ -33,8 +26,6 @@ function Guest() {
               </NavDropdown>
             </Nav>
           </ul>
-          
-         
         </div>
       </nav>
 
