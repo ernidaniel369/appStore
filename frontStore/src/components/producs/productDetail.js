@@ -5,6 +5,9 @@ import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../index.css';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+
+
 
 const endpoint = 'http://localhost:8000/api';
 
@@ -25,15 +28,26 @@ const ProductDetail = () => {
         setProduct(response.data)
     }
 
-    const addCart = () =>{
-        if (token) {
-            window.location.href = `http://localhost:3000/cart`;
-        } else { 
-            alert('Es necesario estar logueado para ir de compras');
-
-            window.location.href = `http://localhost:3000/login`;
+    
+    const addCart = () => {
+        try {
+            // Obtener el carrito actual de las cookies o crear uno vacío si no existe
+            const cart = JSON.parse(Cookies.get('cart') || '[]');
+    
+            // Agregar el producto al carrito
+            cart.push(product);
+    
+            // Guardar el carrito actualizado en las cookies
+            Cookies.set('cart', cart);
+    
+            // Mostrar una confirmación al usuario
+            alert(`El producto "${product.name}" ha sido agregado al carrito.`);
+        } catch (error) {
+            console.error('Ocurrió un error al agregar el producto al carrito:', error);
+            alert('Ocurrió un error al agregar el producto al carrito. Por favor, intenta de nuevo más tarde.');
         }
-    }
+    };
+    
 
 
     if (!product) {
