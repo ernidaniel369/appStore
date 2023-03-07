@@ -1,16 +1,13 @@
 import React from 'react';
 import { Container, ListGroup } from 'react-bootstrap';
-
-const products = [
-  { id: 1, name: 'Product 1', description: 'Description of product 1', price: 10.99 },
-  { id: 2, name: 'Product 2', description: 'Description of product 2', price: 20.99 },
-  { id: 3, name: 'Product 3', description: 'Description of product 3', price: 30.99 },
-];
+import { Product } from '../../services/cartServices';
 
 const ProductCart = () => {
+  const products = Product.getAllProducts();
+
   return (
     <Container>
-      <h1>Shopping Cart</h1>
+      <h1>All Products</h1>
       <ListGroup>
         {products.map(product => (
           <ListGroup.Item key={product.id}>

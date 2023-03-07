@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../index.css';
 import axios from 'axios';
-import Cookies from 'js-cookie';
+import { Product } from '../../services/cartServices';
 
 
 
@@ -27,27 +27,6 @@ const ProductDetail = () => {
         const response = await axios.get(`${endpoint}/product/${id}`)
         setProduct(response.data)
     }
-
-    
-    const addCart = () => {
-        try {
-            // Obtener el carrito actual de las cookies o crear uno vacío si no existe
-            const cart = JSON.parse(Cookies.get('cart') || '[]');
-    
-            // Agregar el producto al carrito
-            cart.push(product);
-    
-            // Guardar el carrito actualizado en las cookies
-            Cookies.set('cart', cart);
-    
-            // Mostrar una confirmación al usuario
-            alert(`El producto "${product.name}" ha sido agregado al carrito.`);
-        } catch (error) {
-            console.error('Ocurrió un error al agregar el producto al carrito:', error);
-            alert('Ocurrió un error al agregar el producto al carrito. Por favor, intenta de nuevo más tarde.');
-        }
-    };
-    
 
 
     if (!product) {
@@ -86,7 +65,7 @@ const ProductDetail = () => {
                     <Card.Text as='div'>Description: {product.description}</Card.Text>
                     <Card.Text as='div'>Stock: {product.stock}</Card.Text>
                     <Card.Text as='h3'>Price: ${product.price}</Card.Text>
-                    <Button variant='primary' onClick={addCart} >Add Card</Button>
+                    <Button variant='primary' onClick={() => Product.addNewProduct(product.id, product.name, product.price)}>Add Card</Button>
                     </Card.Body>
                 </Card>
                 </Col>
