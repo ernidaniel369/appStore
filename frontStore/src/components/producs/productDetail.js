@@ -1,4 +1,3 @@
-import AuthUser from '../AuthUser';
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Carousel, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
@@ -15,7 +14,6 @@ const ProductDetail = () => {
 
     const [ product, setProduct ] = useState( null )
     const { id } = useParams();
-    const {token} = AuthUser();
 
     
 
@@ -30,7 +28,6 @@ const ProductDetail = () => {
 
 
     if (!product) {
-        console.log(product);
         return <div>Loading...</div>
     }
     

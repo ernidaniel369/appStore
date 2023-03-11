@@ -10,6 +10,7 @@ export class Product {
   }
 
   static addNewProduct(id, name, price) {
+    
     const newProduct = new Product(id, name, price);
     this.addProduct(newProduct);
     console.log('item agregado')
@@ -24,7 +25,7 @@ export class Product {
         return value.map(product => ({ id: product.id, name: product.name, price: product.price }));
       }
       return value;
-    }));
+    }), {expires: 1});
   }
 
   static getAllProducts() {
@@ -36,8 +37,19 @@ export class Product {
         console.error('Error al parsear el JSON de productos:', error);
       }
     }
-    console.log('mostrando items');
     return this.productsArray;
+  }
+
+  static deleteProduct(id){
+    console.log('funcion para eliminar prudcto numero: '+ id);
+    const products = Object.values(Cookies.get('products')); // convierte el objeto en un arreglo de valores
+    const product = products.find(product => product.id === id); // utiliza find() en el arreglo de productos
+    
+    if (product) {
+      console.log(product);
+    } else {
+      console.log(`No se encontró ningún producto con el id ${id}`);
+    }
   }
 }
 

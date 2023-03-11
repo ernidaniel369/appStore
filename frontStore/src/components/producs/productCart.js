@@ -1,8 +1,11 @@
 import React from 'react';
-import { Container, ListGroup } from 'react-bootstrap';
+import { Container, ListGroup, Button } from 'react-bootstrap';
 import { Product } from '../../services/cartServices';
 
+
 const ProductCart = () => {
+  
+
   const products = Product.getAllProducts();
 
   return (
@@ -14,6 +17,7 @@ const ProductCart = () => {
             <h5>{product.name}</h5>
             <p>{product.description}</p>
             <p>Price: ${product.price.toFixed(2)}</p>
+            <Button variant='primary' onClick={() => Product.deleteProduct(product.id)}>Delete product</Button>
           </ListGroup.Item>
         ))}
       </ListGroup>
