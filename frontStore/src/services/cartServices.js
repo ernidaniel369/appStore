@@ -41,15 +41,19 @@ export class Product {
   }
 
   static deleteProduct(id){
-    console.log('funcion para eliminar prudcto numero: '+ id);
-    const products = Object.values(Cookies.get('products')); // convierte el objeto en un arreglo de valores
-    const product = products.find(product => product.id === id); // utiliza find() en el arreglo de productos
-    
-    if (product) {
-      console.log(product);
+    const cookies = Cookies.get();
+    const products = JSON.parse(cookies.products);
+
+    const productIndex = products.findIndex(product => product.id === id);
+    if (productIndex > -1) {
+      products.splice(productIndex, 1);
+      Cookies.set('products', JSON.stringify(products));
+      console.log(`El producto ${id} ha sido eliminado.`);
+      
     } else {
-      console.log(`No se encontró ningún producto con el id ${id}`);
+      console.log(`No se encontró ningún producto con el id ${id}.`);
     }
+
   }
 }
 

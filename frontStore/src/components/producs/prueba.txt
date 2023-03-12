@@ -1,0 +1,138 @@
+<div role="tabpanel">
+<section class="item-row" data-js="item-row" data-id="active_item_row_1">
+<article data-js="item-cart" class="item-cart" id="active_item_row_1_item_cart">
+<div role="button" tabindex="0" class="item-cart__asset" data-js="asset">
+<img decoding="async" src="https://http2.mlstatic.com/disco-solido-interno-kingston-sa400s37480g-480gb-negro-S_751939-MLA46221843872_052021-R.jpg" class="bf-ui-image--default" alt="">
+</div>
+<div class="item-cart__info">
+<div role="button" tabindex="0" data-js="title" class="item-title" aria-label="Disco Sólido Interno Kingston Sa400s37/480g 480gb Negro">
+<span data-js="rich-text" aria-hidden="true" class="bf-ui-rich-text bf-ui-rich-text--large bf-ui-rich-text--bold">
+Disco Sólido Interno Kingston Sa400s37/480g 480gb Negro
+</span>
+</div>
+<p class="item-cart__description-text" aria-label="Envío gratis">
+<span data-js="rich-text" aria-hidden="true" class="bf-ui-rich-text bf-ui-rich-text--success bf-ui-rich-text--xsmall">
+Envío gratis
+</span>
+<span class="bf-ui-rich-icon">
+<span class="bf-ui-icon-container bf-ui-icon-container--regular">
+<img id="full" class="bf-ui-icon bf-ui-icon--full" src="https://http2.mlstatic.com/frontend-assets/bf-ui-library/1.146.0/assets/icons/full.svg" alt="">
+</span>
+</span>
+</p>
+<div class="item-cart__actions" data-js="actions">
+<div class="bf-ui-link-container bf-ui-link-container--horizontal" data-js="link-container" data-id="link_container1">
+<span role="link" tabindex="0" class="bf-ui-link" data-id="link_delete_item" data-js="link" aria-label="Eliminar">
+<span data-js="rich-text" aria-hidden="true" class="bf-ui-rich-text">
+Eliminar
+</span>
+</span>
+<span role="link" tabindex="0" class="bf-ui-link" data-id="link_more-seller-items" data-js="link" aria-label="Más productos del vendedor">
+<span data-js="rich-text" aria-hidden="true" class="bf-ui-rich-text">
+Más productos del vendedor
+</span>
+</span>
+<span role="link" tabindex="0" class="bf-ui-link" data-id="link_buy-item" data-js="link" aria-label="Comprar ahora">
+<span data-js="rich-text" aria-hidden="true" class="bf-ui-rich-text">
+Comprar ahora
+</span>
+</span>
+<span role="link" tabindex="0" class="bf-ui-link" data-id="link_change_item_list" data-js="link" aria-label="Guardar para después">
+<span data-js="rich-text" aria-hidden="true" class="bf-ui-rich-text">
+Guardar para después
+</span>
+</span>
+</div>
+</div>
+</div>
+</article>
+<div class="bf-ui-quantity-selector">
+<div class="bf-ui-quantity-selector__box">
+<form class="bf-ui-quantity-selector__form">
+<input type="hidden" name="_csrf" value="JbIrZf4R-6qPGm0o_Py4GPYBmPT2Yjv33oAk">
+<button type="button" class="andes-button bf-ui-quantity-selector__button bf-ui-quantity-selector__button--disabled andes-button--large andes-button--transparent andes-button--disabled" disabled="" aria-label="Quitar una unidad">
+<span class="andes-button__content">
+−
+</span>
+</button>
+<div class="andes-form-control andes-form-control--textfield andes-form-control--default bf-ui-quantity-selector__input">
+<label>
+<div class="andes-form-control__control">
+<input aria-label="1 unidad" rows="1" class="andes-form-control__field" maxlength="120" value="1">
+</div>
+</label>
+<div class="andes-form-control__bottom">
+<span class="andes-form-control__message">
+</span>
+</div>
+</div>
+<button type="button" class="andes-button bf-ui-quantity-selector__button andes-button--large andes-button--transparent" arial-label="Agregar una unidad">
+<span class="andes-button__content">
++
+</span>
+</button>
+</form>
+<div class="bf-ui-quantity-selector__spinner-container">
+</div>
+</div>
+<p class="bf-ui-quantity-selector__message" data-js="title" aria-label="105 disponibles">
+<span data-js="rich-text" aria-hidden="true" class="bf-ui-rich-text bf-ui-rich-text--false">
+105 disponibles
+</span>
+</p>
+</div>
+<div class="item-price-container" data-id="active_item_row_1_item_price" data-js="item-price">
+<div class="item-price-discount" aria-label="30% de descuento">
+<span data-js="rich-text" aria-hidden="true" class="bf-ui-rich-text bf-ui-rich-text--success bf-ui-rich-text--xxsmall">
+30%
+</span>
+</div>
+<div class="item-price-original" aria-label="Precio anterior 16899 pesos">
+<span itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" class="bf-ui-rich-price bf-ui-rich-price--xsmall bf-ui-rich-price--strike">
+<meta itemprop="price" content="16.899">
+<span itemprop="priceCurrency" aria-hidden="true">
+$&nbsp;
+</span>
+<span class="bf-ui-price-small">
+16.899
+</span>
+</span>
+</div>
+<div class="item-price" aria-label="Precio actual 11799 pesos">
+<div class="item-price-current">
+<span itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" class="bf-ui-rich-price bf-ui-rich-price--large">
+<meta itemprop="price" content="11.799">
+<span itemprop="priceCurrency" aria-hidden="true">
+$&nbsp;
+</span>
+<span class="bf-ui-price-small">
+11.799
+</span>
+</span>
+</div>
+</div>
+</div>
+</section>
+<div class="bf-ui-footer-container" data-id="footer_container1" data-js="footer-container">
+<div class="bf-ui-separator" data-js="separator" data-id="separator_1">
+</div>
+<div class="bf-ui-ticket-row" id="ticket_row_shipping" data-js="ticket-row">
+<div class="bf-ui-ticket-row__left-column" data-js="left-column">
+<h5 class="bf-ui-ticket-row__left-column--primary-text" data-js="primary-text" aria-label="Envío">
+<span data-js="rich-text" aria-hidden="true" class="bf-ui-rich-text bf-ui-rich-text--mid">
+Envío
+</span>
+</h5>
+</div>
+<div class="bf-ui-ticket-row__right-column" data-js="right-column">
+<h6 class="bf-ui-ticket-row__right-column--primary-text" data-js="primary-text" aria-label="Gratis">
+<span data-js="rich-text" aria-hidden="true" class="bf-ui-rich-text bf-ui-rich-text--success">
+Gratis
+</span>
+</h6>
+</div>
+</div>
+<div class="bf-ui-separator" data-js="separator" data-id="separator_2">
+</div>
+<div class="bf-ui-ticket-row" id="ticket_row_total" data-js="ticket-row">
+<div class="bf-ui-ticket-row__left-column" data-js="left-column"><h5 class="bf-ui-ticket-row__left-column--primary-text" data-js="primary-text" aria-label="Total"><span data-js="rich-text" aria-hidden="true" class="bf-ui-rich-text bf-ui-rich-text--xxlarge">Total con envío</span></h5></div><div class="bf-ui-ticket-row__right-column" data-js="right-column"><h6 class="bf-ui-ticket-row__right-column--primary-text" data-js="primary-text"><span itemprop="offers" itemscope="" itemtype="http://schema.org/Offer" class="bf-ui-rich-price bf-ui-rich-price--xxlarge"><meta itemprop="price" content="11.799undefined00"><span itemprop="priceCurrency" aria-hidden="true">$&nbsp;</span><span class="bf-ui-price-small">11.799</span><span><span></span><span class="bf-ui-price-small-cents">00</span></span></span></h6></div></div><div class="bf-ui-separator" data-js="separator" data-id="separator_3"></div><button type="button" class="andes-button bf-ui-button andes-button--large andes-button--loud" id="button_proceed_to_checkout" brick="[object Object]"><span class="andes-button__content"><span class="andes-button__text">Continuar compra</span></span></button></div></div>
