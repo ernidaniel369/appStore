@@ -1,12 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, ListGroup, Button } from 'react-bootstrap';
 import { Product } from '../../services/cartServices';
+import AuthUser from "../AuthUser";
+
 
 const ProductCart = () => {
-  const [products, setProducts] = useState(Product.getAllProducts());
+  const [products, setProducts] = useState([]);
+  const { http } = AuthUser();
+  const [userdetail, setUserdetail] = useState("");
 
-  const handleDeleteProduct = (id) => {
-    Product.deleteProduct(id);
+
+  useEffect(() => {
+      fetchUserDetail();
+  }, []);
+
+  const fetchUserDetail = () => {
+      http.post("/me").then((res) => {
+          setUserdetail(res.data);
+      });
+  };
+
+  const userEmail = userdetail.email;
+
+  useEffect(() => {
+    setProducts(Product.getAllProducts(userEmail));
+  }, [userEmail]);
+
+  const suprProduct = (id) => {
+    Product.deleteProduct(id, userEmail);
     setProducts(products.filter(product => product.id !== id));
   };
 
@@ -16,7 +37,7 @@ const ProductCart = () => {
       acc[cur.name].count = 1;
     } else {
       acc[cur.name].count++;
-    }
+    } 
     return acc;
   }, {}));
 
@@ -30,14 +51,13 @@ const ProductCart = () => {
             <h5>{product.name}</h5>
             <p>{product.description}</p>
             <p>Price: ${product.price.toFixed(2)}</p>
-            <Button variant='primary' onClick={() => handleDeleteProduct(product.id)}>Delete product</Button>
+            <Button variant='primary' onClick={() => suprProduct(product.id)}>Delete product</Button>
           </ListGroup.Item>
         ))}
       </ListGroup>
+      <Button variant='primary' onClick={Product.muestraCookies}>Limpieza de cookies</Button>
     </Container>
   );
 }
 
 export default ProductCart;
-
-
