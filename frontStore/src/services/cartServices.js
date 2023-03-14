@@ -3,14 +3,15 @@ import Cookies from 'js-cookie';
 export class Product {
   static productsArray = [];
 
-  constructor(id, name, price) {
+  constructor(id, name, price, stock) {
     this.id = id;
     this.name = name;
     this.price = price;
+    this.stock = stock;
   }
 
-  static addNewProduct(id, name, price, email) {
-    const newProduct = new Product(id, name, price);
+  static addNewProduct(id, name, price, stock, email) {
+    const newProduct = new Product(id, name, price, stock);
     this.addProduct(newProduct, email);
     console.log('item agregado');
     console.log(email);
@@ -21,7 +22,7 @@ export class Product {
     products.push(product);
     Cookies.set(`products-${email}`, JSON.stringify(products, (key, value) => {
       if (key === 'productsArray' && Array.isArray(value)) {
-        return value.map(product => ({ id: product.id, name: product.name, price: product.price }));
+        return value.map(product => ({ id: product.id, name: product.name, price: product.price, stock: product.stock }));
       }
       return value;
     }), { expires: 1 });

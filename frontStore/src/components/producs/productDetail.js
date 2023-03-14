@@ -75,7 +75,7 @@ const ProductDetail = () => {
                             <Card.Text as='div'>Description: {product.description}</Card.Text>
                             <Card.Text as='div'>Stock: {product.stock}</Card.Text>
                             <Card.Text as='h3'>Price: ${product.price}</Card.Text>
-                            <Button variant='primary' onClick={() => Product.addNewProduct(product.id, product.name, product.price, userdetail.email)}>Add Card</Button>
+                            <Button variant='primary' onClick={() => Product.addNewProduct(product.id, product.name, product.price, product.stock, userdetail.email)}>Add Card</Button>
                         </Card.Body>
                     </Card>
                 </Col>

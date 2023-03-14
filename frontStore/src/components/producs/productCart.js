@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Container, ListGroup, Button } from 'react-bootstrap';
 import { Product } from '../../services/cartServices';
 import AuthUser from "../AuthUser";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 const ProductCart = () => {
@@ -11,13 +13,13 @@ const ProductCart = () => {
 
 
   useEffect(() => {
-      fetchUserDetail();
+    fetchUserDetail();
   }, []);
 
   const fetchUserDetail = () => {
-      http.post("/me").then((res) => {
-          setUserdetail(res.data);
-      });
+    http.post("/me").then((res) => {
+      setUserdetail(res.data);
+    });
   };
 
   const userEmail = userdetail.email;
@@ -31,27 +33,47 @@ const ProductCart = () => {
     setProducts(products.filter(product => product.id !== id));
   };
 
-  const uniqueProducts = Object.values(products.reduce((acc, cur) => {
-    if (!acc[cur.name]) {
-      acc[cur.name] = cur;
-      acc[cur.name].count = 1;
-    } else {
-      acc[cur.name].count++;
-    } 
-    return acc;
-  }, {}));
+  const handleQuantityChange = (id, event) => {
+    const quantity = event.target.value;
+    setProducts(products.map(product => {
+      if (product.id === id) {
+        return {
+          ...product,
+          quantity: quantity
+        };
+      } else {
+        return product;
+      }
+    }));
+  };
+
+  
 
   return (
     <Container>
       <h1>All Products</h1>
       <ListGroup>
-        {uniqueProducts.map(product => (
+        {products.map(product => (
           <ListGroup.Item key={product.id}>
-            <span className="product-count">{product.count}</span>
             <h5>{product.name}</h5>
             <p>{product.description}</p>
-            <p>Price: ${product.price.toFixed(2)}</p>
-            <Button variant='primary' onClick={() => suprProduct(product.id)}>Delete product</Button>
+            <p>Stock actual: {product.stock}</p>
+            <div>
+              <label>
+                Quantity:
+                <input
+                  type="number"
+                  value={product.quantity || 1}
+                  onChange={(event) => handleQuantityChange(product.id, event)}
+                  min="1"
+                  max={product.stock}
+                />
+              </label>
+            </div>
+            <p>Price: ${product.price*(product.quantity || 1)}</p>
+            <Button variant='danger' onClick={() => suprProduct(product.id)}>
+              <FontAwesomeIcon icon={faTrash} />
+            </Button>
           </ListGroup.Item>
         ))}
       </ListGroup>
