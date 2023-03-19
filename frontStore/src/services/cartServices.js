@@ -14,7 +14,6 @@ export class Product {
     const newProduct = new Product(id, name, price, stock);
     this.addProduct(newProduct, email);
     console.log('item agregado');
-    console.log(email);
   }
 
   static addProduct(product, email) {
@@ -58,6 +57,11 @@ static deleteProduct(id, email) {
       Cookies.remove(products);
     });
     console.log('cookies eliminadas');
+  }
+
+  static descuento(productsToBuy){
+    console.log('descuento')
+    console.log(productsToBuy);
   }
 
 }

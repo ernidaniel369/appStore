@@ -47,7 +47,18 @@ const ProductCart = () => {
     }));
   };
 
-  
+  const handleBuyClick = () => {
+    const productsToBuy = products.map(product => ({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: product.quantity || 1,
+      email: userEmail
+    }));
+    Product.descuento(productsToBuy);
+  }
+
+
 
   return (
     <Container>
@@ -70,13 +81,15 @@ const ProductCart = () => {
                 />
               </label>
             </div>
-            <p>Price: ${product.price*(product.quantity || 1)}</p>
+            <p>Price: ${product.price * (product.quantity || 1)}</p>
             <Button variant='danger' onClick={() => suprProduct(product.id)}>
               <FontAwesomeIcon icon={faTrash} />
             </Button>
           </ListGroup.Item>
         ))}
       </ListGroup>
+      <Button variant='primary' onClick={handleBuyClick}>Comprar</Button>
+      <h2>Limpiza de carro y cookies</h2>
       <Button variant='primary' onClick={Product.muestraCookies}>Limpieza de cookies</Button>
     </Container>
   );
