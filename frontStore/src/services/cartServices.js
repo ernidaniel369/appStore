@@ -59,9 +59,7 @@ static deleteProduct(id, email) {
     console.log('cookies eliminadas');
   }
 
-  static descuento(productsToBuy){
-    console.log('descuento')
-    console.log(productsToBuy);
-  }
+  
+  
 
 }

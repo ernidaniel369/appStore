@@ -47,11 +47,7 @@ class ProductController extends Controller
             return response()->json(['message' => 'Product not registered'], 404);
         }
     
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->price = $request->price;
         $product->stock = $request->stock;
-        $product->img = $request->img;
     
         $product->save();
         return $product;

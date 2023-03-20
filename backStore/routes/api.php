@@ -3,7 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -16,6 +18,9 @@ Route::post('register', [AuthController::class, 'register']);
 Route::get('products', [ProductController::class, 'getAllProduct']);
 Route::get('product/{id}', [ProductController::class, 'getProduct']);
 
+Route::put('updateProduct/{id}', [ProductController::class, 'updateProduct']);
+
+
 
 
 Route::group(['middleware'=>'api'],function(){
@@ -23,9 +28,8 @@ Route::group(['middleware'=>'api'],function(){
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
     Route::post('getUser',[AuthController::class, 'getUser']);
-
+    Route::post('createOrder', [OrderController::class, 'createOrder']);
     Route::post('createProduct', [ProductController::class, 'createProduct']);
-    Route::put('updateProduct', [ProductController::class, 'updateProduct/{id}']);
     Route::delete('destroyProduct', [ProductController::class, 'destroyProduct/{id}']);
 
 });

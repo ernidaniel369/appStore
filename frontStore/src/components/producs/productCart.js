@@ -4,7 +4,9 @@ import { Product } from '../../services/cartServices';
 import AuthUser from "../AuthUser";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
+const endpoint = 'http://localhost:8000/api';
 
 const ProductCart = () => {
   const [products, setProducts] = useState([]);
@@ -53,10 +55,38 @@ const ProductCart = () => {
       name: product.name,
       price: product.price,
       quantity: product.quantity || 1,
-      email: userEmail
+      stock: product.stock || 0
     }));
-    Product.descuento(productsToBuy);
+    console.log(productsToBuy);
+    productsToBuy.forEach(product => {
+      axios.put(`${endpoint}/updateProduct/${product.id}`, {
+        stock: product.stock - product.quantity
+      })
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    });
+
+    //
+    productsToBuy.forEach(product => {
+      axios.post(`${endpoint}/createOrder`, {
+        name: product.name,
+        price: product.price*product.quantity,
+        amount: product.quantity
+      })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    });
   }
+
+
 
 
 
