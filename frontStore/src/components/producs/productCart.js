@@ -5,6 +5,7 @@ import AuthUser from "../AuthUser";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import PayPalButton from '../../services/paypalServices';
 
 const endpoint = 'http://localhost:8000/api';
 
@@ -120,7 +121,11 @@ const ProductCart = () => {
       </ListGroup>
       <Button variant='primary' onClick={handleBuyClick}>Comprar</Button>
       <h2>Limpiza de carro y cookies</h2>
-      <Button variant='primary' onClick={Product.muestraCookies}>Limpieza de cookies</Button>
+      <Button variant='primary' onClick={Product.muestraCookies}>Clear</Button>
+      <h2>Paypal</h2>
+      <div>
+      <PayPalButton />
+      </div>
     </Container>
   );
 }

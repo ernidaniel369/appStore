@@ -29,6 +29,7 @@ Route::group(['middleware'=>'api'],function(){
     Route::post('me', [AuthController::class, 'me']);
     Route::post('getUser',[AuthController::class, 'getUser']);
     Route::post('createOrder', [OrderController::class, 'createOrder']);
+    Route::post('purchaseOrder', [OrderController::class, 'purchaseOrder']);
     Route::post('createProduct', [ProductController::class, 'createProduct']);
     Route::delete('destroyProduct', [ProductController::class, 'destroyProduct/{id}']);
 

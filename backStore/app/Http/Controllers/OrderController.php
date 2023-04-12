@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Buyers;
 use App\Models\orders;
 use Illuminate\Http\Request;
 
@@ -24,6 +25,32 @@ class OrderController extends Controller
         echo "Compra existosa";
     }
 
+    public function purchaseOrder(Request $request)
+    {   
+        
+        
+        try {
+            $input = $request->all();
+            $purchase_id = $input['details']['purchase_units'][0]['reference_id'];
+            $status = $input['details']['status'];
+            $email_paypal = $input['details']['payer']['email_address'];
+            $id_user = $input['data']['payerID'];
+            $total = $input['details']['purchase_units'][0]['amount']['value'];
+    
+            $buyer = new Buyers();
+            $buyer->purchase_id = $purchase_id;
+            $buyer->status = $status;
+            $buyer->email_paypal = $email_paypal;
+            $buyer->id_user = $id_user;
+            $buyer->total = $total;
+            $buyer->email_user = ""; 
+            $buyer->save();
+    
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
 
     
     
