@@ -21,6 +21,7 @@ export class Product {
     products.push(product);
     Cookies.set(`products-${email}`, JSON.stringify(products, (key, value) => {
       if (key === 'productsArray' && Array.isArray(value)) {
+        
         return value.map(product => ({ id: product.id, name: product.name, price: product.price, stock: product.stock }));
       }
       return value;
