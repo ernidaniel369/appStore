@@ -68,6 +68,7 @@ const ProductCart = () => {
         name: product.name,
         price: product.price * product.quantity,
         amount: product.quantity,
+        email: userEmail,
       });
     });
 
@@ -148,9 +149,10 @@ const ProductCart = () => {
 
   const compraExitosa = () => {
     if (purchaseSuccess) {
-      Product.muestraCookies();
+      
       
       alert ("Compra exitosa");
+      Product.muestraCookies();
       window.location.href = '/';
     }
   };

@@ -17,7 +17,7 @@ public function createOrder(Request $request)
     $order->name = $request->name;
     $order->amount = $request->amount;
     $order->price = $request->price;
-    $order->purchase_id = "";
+    $order->purchase_id = $request->email;
     do {
         $code = str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
     } while (orders::where('code', $code)->exists());
