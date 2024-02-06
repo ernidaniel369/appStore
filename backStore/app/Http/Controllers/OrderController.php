@@ -10,21 +10,24 @@ class OrderController extends Controller
 {
    
     
+/////////////////////////////////////////////////////////
+public function createOrder(Request $request)
+{
+    $order = new orders();
+    $order->name = $request->name;
+    $order->amount = $request->amount;
+    $order->price = $request->price;
+    $order->purchase_id = "";
+    do {
+        $code = str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
+    } while (orders::where('code', $code)->exists());
+    $order->code = $code;
+    $order->save();
+    echo "Compra existosa";
+}
+
     
-    public function createOrder(Request $request)
-    {
-        $order = new orders();
-        $order->name = $request->name;
-        $order->amount = $request->amount;
-        $order->price = $request->price;
-        $order->purchase_id = "";
-        do {
-            $code = str_pad(rand(1, 999999), 6, '0', STR_PAD_LEFT);
-        } while (orders::where('code', $code)->exists());
-        $order->code = $code;
-        $order->save();
-        echo "Compra existosa";
-    }
+//////////////////////////////////    
 
     public function purchaseOrder(Request $request)
     {   

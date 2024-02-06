@@ -53,11 +53,11 @@ static deleteProduct(id, email) {
 }
   //muestra y elimina todas las cookies 
   static muestraCookies() {
-    console.log(Cookies.get());
     Object.keys(Cookies.get()).forEach(function (products) {
       Cookies.remove(products);
     });
     console.log('cookies eliminadas');
+    
   }
 
   

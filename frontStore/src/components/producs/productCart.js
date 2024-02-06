@@ -7,15 +7,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-const endpointP = 'http://localhost:8000/api/purchaseOrder';
 
+const endpointP = 'http://localhost:8000/api/purchaseOrder';
 const endpoint = 'http://localhost:8000/api';
 
 const ProductCart = () => {
   const [products, setProducts] = useState([]);
   const { http } = AuthUser();
   const [userdetail, setUserdetail] = useState("");
-
+  const [purchaseSuccess, setPurchaseSuccess] = useState(false);
 
   useEffect(() => {
     fetchUserDetail();
@@ -33,13 +33,11 @@ const ProductCart = () => {
     setProducts(Product.getAllProducts(userEmail));
   }, [userEmail]);
 
- 
-
   const suprProduct = (id) => {
     Product.deleteProduct(id, userEmail);
     setProducts(products.filter(product => product.id !== id));
   };
-  /////////////
+
   const handleQuantityChange = (id, event) => {
     const quantity = event.target.value;
     setProducts(products.map(product => {
@@ -53,37 +51,36 @@ const ProductCart = () => {
       }
     }));
   };
-  //////////////////
+
   const handleBuyClick = () => {
     console.log(products);
-    
-    products.forEach(product => {
-      axios.put(`${endpoint}/updateProduct/${product.id}`, {
-        stock: product.stock - product.quantity 
-      })
-        .then(response => {
-          console.log(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+  
+    // Realiza la solicitud para actualizar el stock de los productos
+    const updatePromises = products.map(product => {
+      return axios.put(`${endpoint}/updateProduct/${product.id}`, {
+        stock: product.stock - product.quantity,
+      });
     });
 
-    products.forEach(product => {
-      axios.post(`${endpoint}/createOrder`, {
+    // Realiza la solicitud para crear la orden
+    const orderPromises = products.map(product => {
+      return axios.post(`${endpoint}/createOrder`, {
         name: product.name,
         price: product.price * product.quantity,
-        amount: product.quantity
-      })
-        .then(response => {
-          console.log(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+        amount: product.quantity,
+      });
     });
-  }
-  //////////////////// total de precio
+
+    Promise.all([...updatePromises, ...orderPromises])
+      .then(() => {
+        console.log('Todas las solicitudes completadas exitosamente');
+        setPurchaseSuccess(true);
+      })
+      .catch(error => {
+        console.log('Error en las solicitudes:', error);
+      });
+  };
+
   const updateTotalAmount = () => {
     const newTotalAmount = products.reduce((total, product) => {
       const productPrice = parseFloat(product.price);
@@ -93,7 +90,6 @@ const ProductCart = () => {
         return total;
       }
     }, 0);
-
     setTotalAmount(newTotalAmount);
   };
 
@@ -102,14 +98,12 @@ const ProductCart = () => {
   useEffect(() => {
     updateTotalAmount();
   }, [products]);
-
-  /////////
+  
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
       "https://www.paypal.com/sdk/js?client-id=AaF5giuuw8Gpy6TFn6zC-8acIgTkrHAft2sgolRG87vJTLZgjS4seVMyVbQ6EPEcXJAsvAqb34VGei0s&currency=USD";
     script.addEventListener("load", () => {
-      // Renderiza los botones de PayPal después de que totalAmount se haya actualizado
       if (totalAmount > 0) {
         paypal.Buttons({
           createOrder: function (data, actions) {
@@ -128,7 +122,8 @@ const ProductCart = () => {
                 method: 'post',
                 headers: {
                   'content-type': 'application/json'
-                }, body: JSON.stringify({
+                }, 
+                body: JSON.stringify({
                   data: data,
                   details: details
                 })
@@ -146,20 +141,19 @@ const ProductCart = () => {
     });
     document.body.appendChild(script);
 
-    // Limpia el script al desmontar el componente
     return () => {
       document.body.removeChild(script);
     };
   }, [totalAmount]);
 
-  ///
-  const muestaLista = () => {
-    console.log('la siguiente lista es de product')
-    console.log(products)
-    console.log(totalAmount)
-  }
-  ///
-
+  const compraExitosa = () => {
+    if (purchaseSuccess) {
+      Product.muestraCookies();
+      
+      alert ("Compra exitosa");
+      window.location.href = '/';
+    }
+  };
 
   return (
     <Container>
@@ -198,15 +192,13 @@ const ProductCart = () => {
       {totalAmount > 0 && (
         <>
           <h2>Precio total: ${totalAmount}</h2>
-          <Button variant='primary' onClick={muestaLista}>Lista actual</Button>
-          <h2>Clear cookies</h2>
-          <Button variant='primary' onClick={Product.muestraCookies}>Clear</Button>
           <h2>Paypal</h2>
           <div>
             <div id="paypal-button-container"></div>
           </div>
         </>
       )}
+      {compraExitosa()}
     </Container>
   );
 }

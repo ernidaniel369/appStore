@@ -52,7 +52,6 @@ class ProductController extends Controller
         $product->save();
         return $product;
     }
-    
 
     public function destroyProduct($id)
     {
