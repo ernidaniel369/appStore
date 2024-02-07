@@ -171,7 +171,7 @@ const ProductCart = () => {
                 Quantity:
                 <input
                   type="number"
-                  value={product.quantity || 1}
+                  value={product.quantity}
                   onChange={(event) => {
                     handleQuantityChange(product.id, event);
                     updateTotalAmount();

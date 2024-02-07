@@ -18,15 +18,20 @@ export class Product {
 
   static addProduct(product, email) {
     const products = JSON.parse(Cookies.get(`products-${email}`) || '[]');
-    products.push(product);
-    Cookies.set(`products-${email}`, JSON.stringify(products, (key, value) => {
-      if (key === 'productsArray' && Array.isArray(value)) {
-        
-        return value.map(product => ({ id: product.id, name: product.name, price: product.price, stock: product.stock }));
-      }
-      return value;
-    }), { expires: 1 });
-  }
+    const existingProductIndex = products.findIndex(p => p.id === product.id);
+
+    if (existingProductIndex !== -1) {
+        // Si el producto ya está en el carrito, incrementa la cantidad
+        products[existingProductIndex].quantity++;
+    } else {
+        // Si es un nuevo producto, establece la cantidad en 1
+        product.quantity = 1;
+        products.push(product);
+    }
+
+    Cookies.set(`products-${email}`, JSON.stringify(products));
+}
+
 
   static getAllProducts(email) {
     const products = Cookies.get(`products-${email}`);
