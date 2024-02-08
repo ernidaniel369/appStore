@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Product } from '../services/cartServices';
 
 export default function AuthUser(){
 
@@ -31,7 +32,8 @@ export default function AuthUser(){
         navigate('/dashboard');
     }
 
-    const logout = () =>{
+    const logout = () =>{   
+        Product.muestraCookies();
         sessionStorage.clear();
         navigate('/login');
     }

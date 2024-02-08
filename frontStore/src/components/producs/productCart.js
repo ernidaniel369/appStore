@@ -149,13 +149,13 @@ const ProductCart = () => {
 
   const compraExitosa = () => {
     if (purchaseSuccess) {
-      
-      
       alert ("Compra exitosa");
       Product.muestraCookies();
       window.location.href = '/';
     }
   };
+
+  
 
   return (
     <Container>

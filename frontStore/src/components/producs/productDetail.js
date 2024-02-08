@@ -45,10 +45,14 @@ const ProductDetail = () => {
     }
 
     function Agregar() {
-        Product.addNewProduct(product.id, product.name, product.price, product.stock, userdetail.email)
-        return alert ("Producto agregado");
+        if (userdetail.email) {
+            Product.addNewProduct(product.id, product.name, product.price, product.stock, userdetail.email);
+            alert("Producto agregado al carrito.");
+        } else {
+            alert("Debe iniciar sesión para agregar productos al carrito.");
+        }
     }
-
+    
 
     return (
         <Container style={{ maxWidth: '800px' }} className="align-items-center">
