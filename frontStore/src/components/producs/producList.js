@@ -2,40 +2,38 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 
-
 const endpoint = 'http://localhost:8000/api';
 
-
 const ProducList = () => {
+  const [ products, setProducts ] = useState( [] );
+  const [ searchTerm, setSearchTerm ] = useState("");
+  const [ error, setError ] = useState(null); 
 
-    const [ products, setProducts ] = useState( [] )
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(`${endpoint}/products`);
+        setProducts(response.data.data); 
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setError("Error fetching products."); 
+      }
+    };
+    fetchProducts();
+  }, []);
 
-    useEffect ( ()=> {
-        getAllProducts()
-    }, [])
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
-    const getAllProducts = async () => {
-        const response = await axios.get(`${endpoint}/products`)
-        setProducts(response.data)
-    }
+  const filteredProducts = products.filter((product) => 
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-    
-    
-        
-
-
-    const [searchTerm, setSearchTerm] = useState("");
-
-    const handleSearch = (event) => {
-        setSearchTerm(event.target.value);
-    }
-
-    const filteredProducts = products.filter((product) => {
-        return product.name.toLowerCase().includes(searchTerm.toLowerCase());
-    });
-
-    return (
-        <Container>
+  return (
+    <Container>
+      {error && <div className="alert alert-danger">{error}</div>} 
+      {products.length === 0 && <div>Loading products...</div>} 
             <Form>
                 <Form.Group>
                     <Form.Label>Buscar Productos</Form.Label>
@@ -50,7 +48,7 @@ const ProducList = () => {
                                 <Card.Title as='div'>
                                     <strong>{product.name}</strong>
                                 </Card.Title>
-                                <img src={product.img} alt={product.name} className="img-thumbnail" style={{maxHeight: "200px", maxWidth: "250px"}} />
+                                <img src={product.image} alt={product.name} className="img-thumbnail" style={{maxHeight: "200px", maxWidth: "250px"}} />
                                 <Card.Text as='div'>{product.stock}</Card.Text>
                                 <Card.Text as='h3'>${product.price}</Card.Text>
                                 <Button variant='primary' onClick={() => { window.location.href = `http://localhost:3000/product/${product.id}` }}>Product Details</Button>

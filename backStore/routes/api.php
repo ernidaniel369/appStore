@@ -18,7 +18,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::get('products', [ProductController::class, 'getAllProduct']);
 Route::get('product/{id}', [ProductController::class, 'getProduct']);
 
-Route::put('updateProduct/{id}', [ProductController::class, 'updateProduct']);
+
 
 
 
@@ -28,6 +28,7 @@ Route::group(['middleware'=>'api'],function(){
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
     Route::post('getUser',[AuthController::class, 'getUser']);
+    Route::put('updateProduct/{id}', [ProductController::class, 'updateProduct']);
     Route::post('createOrder', [OrderController::class, 'createOrder']);
     Route::post('purchaseOrder', [OrderController::class, 'purchaseOrder']);
     Route::post('createProduct', [ProductController::class, 'createProduct']);

@@ -7,21 +7,19 @@ import axios from 'axios';
 import { Product } from '../../services/cartServices';
 import AuthUser from "../AuthUser";
 
-
-
 const endpoint = 'http://localhost:8000/api';
 
 const ProductDetail = () => {
 
-    const [product, setProduct] = useState(null)
+    const [product, setProduct] = useState(null);
     const { id } = useParams();
     const { http } = AuthUser();
     const [userdetail, setUserdetail] = useState("");
 
-
     useEffect(() => {
         fetchUserDetail();
-    }, []);
+        getProductDetails(id); 
+    }, [id]); // Only re-fetch product details when 'id' changes
 
     const fetchUserDetail = () => {
         http.post("/me").then((res) => {
@@ -29,16 +27,15 @@ const ProductDetail = () => {
         });
     };
 
-
-    useEffect(() => {
-        getProductDetails(id)
-    }, [id])
-
     const getProductDetails = async (id) => {
-        const response = await axios.get(`${endpoint}/product/${id}`)
-        setProduct(response.data)
-    }
-
+        try {
+            const response = await axios.get(`${endpoint}/product/${id}`);
+            setProduct(response.data.data); // Access the 'data' property
+        } catch (error) {
+            console.error("Error fetching product:", error);
+            // Handle the error, e.g., display an error message to the user
+        }
+    };
 
     if (!product) {
         return <div>Loading...</div>
@@ -52,32 +49,35 @@ const ProductDetail = () => {
             alert("Debe iniciar sesión para agregar productos al carrito.");
         }
     }
-    
-
     return (
         <Container style={{ maxWidth: '800px' }} className="align-items-center">
-            <Row>
-                <Col>
-                    <Card className='my-3 p-3 rounded'>
-                        <Card.Body>
-                            <Card.Title as='div'>
-                                <strong>{product.name}</strong>
-                            </Card.Title>
-                            <Carousel prevIcon={<span className="carousel-control-prev-icon" />} nextIcon={<span className="carousel-control-next-icon" />}>
-                                {product.images.map((img, index) => (
-                                    <Carousel.Item key={index}>
-                                        <img
-                                            src={img.url}
-                                            alt={`${product.name}-img-${index}`}
-                                            className="d-block mx-auto img-fluid"
-                                            style={{ maxHeight: "500px", maxWidth: "100%" }}
-                                        />
-                                    </Carousel.Item>
-                                ))}
-                            </Carousel>
-                        </Card.Body>
-                    </Card>
-                </Col>
+        <Row>
+            <Col>
+                <Card className='my-3 p-3 rounded'>
+                    <Card.Body>
+                        <Card.Title as='div'>
+                            <strong>{product.name}</strong>
+                        </Card.Title>
+                        <Carousel prevIcon={<span className="carousel-control-prev-icon" />} nextIcon={<span className="carousel-control-next-icon" />}>
+                            {product.image ? ( 
+                                <Carousel.Item> 
+                                    <img 
+                                        src={product.image} 
+                                        alt={product.name} 
+                                        className="d-block mx-auto img-fluid" 
+                                        style={{ maxHeight: "500px", maxWidth: "100%" }} 
+                                        onError={(e) => { 
+                                            e.target.src = '/image-not-found.png'; 
+                                        }} 
+                                    />
+                                </Carousel.Item>
+                            ) : (
+                                <p>No hay imágenes disponibles</p>
+                            )}
+                        </Carousel>
+                    </Card.Body>
+                </Card>
+            </Col>
                 <Col>
                     <Card className='my-3 p-3 rounded'>
                         <Card.Body>

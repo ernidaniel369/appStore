@@ -2,60 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\images;
+use App\Models\Image;
 use App\Models\Product;
-
 use Illuminate\Http\Request;
-
-
+use App\Http\Resources\ProductResource; 
 
 class ProductController extends Controller
 {
-    
     public function getAllProduct()
     {
         $products = Product::all();
-        return $products;
+        return ProductResource::collection($products); 
     }
 
-    
     public function createProduct(Request $request)
     {
-        $product = new Product();
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->stock = $request->stock;
-        $product->img = $request->img;
+        $product = Product::create($request->all()); 
 
-        $product->save();
+        // Handle image association (if applicable)
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/products');
+            $image = new Image();
+            $image->url = $imagePath;
+            $image->product_id = $product->id;
+            $image->save();
+        }
+
+        return new ProductResource($product); 
     }
 
-    
     public function getProduct($id)
     {
-        $product = Product::with('images')->find($id);
-        return $product;
+        $product = Product::with('images')->findOrFail($id); 
+        return new ProductResource($product);
     }
 
-    
     public function updateProduct(Request $request, $id)
     {
-        try {
-            $product = Product::findOrFail($id);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return response()->json(['message' => 'Product not registered'], 404);
-        }
-    
-        $product->stock = $request->stock;
-    
-        $product->save();
-        return $product;
+        $product = Product::findOrFail($id);
+
+        $product->update($request->only(['stock'])); 
+
+        return new ProductResource($product);
     }
 
     public function destroyProduct($id)
     {
-        $product = Product::destroy($id);
-       return $product;
+        $product = Product::findOrFail($id);
+        $product->delete();
+
+        return response()->noContent(); 
     }
 }
